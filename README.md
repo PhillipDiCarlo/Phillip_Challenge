@@ -1,3 +1,3 @@
 # Phillip_Challenge
 
-Created for a comcast tecchnical interview
+Created for a comcast technical interview

@@ -27,6 +27,27 @@ class TestServerConfiguration(unittest.TestCase):
         # This test expects a redirection status code, typically 301 or 302; it fails if it receives 200
         self.assertNotEqual(response.status_code, 200,
                             msg="HTTP request was unexpectedly successful without redirect")
+        
+    
+    def test_specific_page_content(self):
+        """Test that the server only serves one page with specific content"""
+        expected_html = """<html>
+                            <head>
+                            <title>Hello World</title>
+                            </head>
+                            <body>
+                            <h1>Hello World!</h1>
+                            </body>
+                            </html>"""
+
+        response = requests.get(self.base_url)
+        
+        # Normalize whitespace for comparison
+        actual_html = response.text.strip().replace('\n', '').replace('\r', '').replace(' ', '')
+        expected_html_normalized = expected_html.strip().replace('\n', '').replace('\r', '').replace(' ', '')
+
+        self.assertEqual(actual_html, expected_html_normalized,
+                         msg="The web page content does not match the expected content")
 
 
 if __name__ == "__main__":
